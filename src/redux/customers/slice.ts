@@ -36,7 +36,7 @@ export const fetchCustomers = createAsyncThunk(
   'customers/fetchCustomers',
   async ({ page, limit }: { page?: number; limit?: number }) => {
     const response = await axios.get<IPaginationResponse<ICustomer>>(
-      `${import.meta.env.API_BASE_URL}customers`,
+      `${import.meta.env.VITE_API_BASE_URL}customers`,
       { params: { page, limit } },
     );
     return response.data;
