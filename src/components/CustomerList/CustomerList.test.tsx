@@ -33,7 +33,7 @@ describe('Customers Component', () => {
     mockAxios.reset();
   });
 
-  it('should renders loading state initially', () => {
+  it('should render loading state initially', () => {
     // Mock the axios GET request to delay the response
     mockAxios.onGet().reply(() => {
       return new Promise((resolve) => {
@@ -51,7 +51,7 @@ describe('Customers Component', () => {
     expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
   });
 
-  it('should renders customers list after fetching data', async () => {
+  it('should render customers list after fetching data', async () => {
     mockAxios.onGet().reply(200, customersData);
     render(
       <Provider store={store}>
@@ -64,7 +64,7 @@ describe('Customers Component', () => {
     });
   });
 
-  it('should renders error message when there is an error fetching data', async () => {
+  it('should render error message when there is an error fetching data', async () => {
     // Mock the axios GET request to return an error
     mockAxios.onGet().reply(500);
     render(
