@@ -33,10 +33,10 @@ const CustomerList: React.FC = () => {
     <div>
       <h2>Customers List</h2>
       {error && (
-        <p className="errorText">
-          <div>Oops! Something went wrong while loading the data.</div>
-          <div>Please try refreshing the page, or come back later.</div>
-          <div>If the problem persists, contact support.</div>
+        <p className="errorText" data-testid="error-text">
+          <span>Oops! Something went wrong while loading the data.</span>
+          <span>Please try refreshing the page, or come back later.</span>
+          <span>If the problem persists, contact support.</span>
         </p>
       )}
       <ul>
