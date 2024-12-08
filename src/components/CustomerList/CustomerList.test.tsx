@@ -77,4 +77,6 @@ describe('Customers Component', () => {
       expect(screen.getByTestId('error-text')).toBeInTheDocument();
     });
   });
+
+  // TODO adding unit test cases on pagination interactions
 });
