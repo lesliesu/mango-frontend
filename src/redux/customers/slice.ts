@@ -8,7 +8,7 @@ export interface ICustomer {
   firstName: string;
   lastName: string;
   email: string;
-  registrationDate: Date;
+  registrationDate: string;
 }
 
 interface IPaginationResponse<T> {

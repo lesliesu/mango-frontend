@@ -4,11 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCustomers } from '../../redux/customers/slice';
 import { AppDispatch, RootState } from '../../redux/store';
 
+import './CustomerList.css';
+
 const CustomerList: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { data, totalItems, page, limit, loading, error } = useSelector(
-    (state: RootState) => state.customers,
-  );
+  const {
+    data,
+    totalItems,
+    page,
+    limit: currentLimit,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.customers);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -17,19 +24,25 @@ const CustomerList: React.FC = () => {
 
   const handlePageChange = (newPage: number) => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    dispatch(fetchCustomers({ page: newPage, limit }));
+    dispatch(fetchCustomers({ page: newPage, limit: currentLimit }));
   };
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
       <h2>Customers List</h2>
+      {error && (
+        <p className="errorText">
+          <div>Oops! Something went wrong while loading the data.</div>
+          <div>Please try refreshing the page, or come back later.</div>
+          <div>If the problem persists, contact support.</div>
+        </p>
+      )}
       <ul>
-        {data?.map((customer) => (
-          <li key={customer.id}>
-            {customer.firstName} {customer.lastName}
+        {data?.map(({ id, firstName, lastName, email, registrationDate }) => (
+          <li key={id}>
+            {id}, {firstName} {lastName}, {email}, {registrationDate.slice(0, 10)}
           </li>
         ))}
       </ul>
@@ -38,7 +51,10 @@ const CustomerList: React.FC = () => {
           Previous
         </button>
         <span>Page {page}</span>
-        <button onClick={() => handlePageChange(page + 1)} disabled={page * limit >= totalItems}>
+        <button
+          onClick={() => handlePageChange(page + 1)}
+          disabled={page * currentLimit >= totalItems}
+        >
           Next
         </button>
       </div>
