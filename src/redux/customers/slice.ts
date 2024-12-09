@@ -34,12 +34,18 @@ const initialState: ICustomersSlice = {
 
 export const fetchCustomers = createAsyncThunk(
   'customers/fetchCustomers',
-  async ({ page, limit }: { page?: number; limit?: number }) => {
-    const response = await axios.get<IPaginationResponse<ICustomer>>(
-      `${import.meta.env.VITE_API_BASE_URL}customers`,
-      { params: { page, limit } },
-    );
-    return response.data;
+  async ({ page, limit }: { page?: number; limit?: number }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get<IPaginationResponse<ICustomer>>(
+        `${import.meta.env.VITE_API_BASE_URL}customers`,
+        { params: { page, limit } },
+      );
+      return response.data;
+    } catch (error) {
+      // we may do further error tracking here
+      // console.log(error);
+      return rejectWithValue(error);
+    }
   },
 );
 
