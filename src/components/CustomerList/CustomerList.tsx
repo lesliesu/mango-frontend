@@ -20,7 +20,7 @@ const CustomerList: React.FC = () => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     dispatch(fetchCustomers({ page: 1 }));
-  }, [dispatch]);
+  }, []);
 
   const handlePageChange = (newPage: number) => {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
