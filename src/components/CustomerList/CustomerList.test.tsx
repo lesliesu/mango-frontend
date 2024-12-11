@@ -49,6 +49,7 @@ describe('Customers Component', () => {
     );
 
     expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
+    expect(screen.queryByTestId('error-text')).not.toBeInTheDocument();
   });
 
   it('should render customers list after fetching data', async () => {
@@ -61,6 +62,7 @@ describe('Customers Component', () => {
 
     await waitFor(() => {
       expect(screen.getByText(/Apple Good/i)).toBeInTheDocument();
+      expect(screen.queryByTestId('error-text')).not.toBeInTheDocument();
     });
   });
 
